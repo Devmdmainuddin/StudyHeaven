@@ -1,17 +1,56 @@
 import Container from "@/components/shared/Container";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import { IoMdEyeOff } from 'react-icons/io';
 import Swal from 'sweetalert2';
+import { Button } from "@/components/ui/button";
 
 
 const AuthPage = () => {
-    const [showpassword, setshowpassword] = useState(null)
-    const navigate = useNavigate()
 
-    const handleSubmit = async e => {
+    const [showpassword, setshowpassword] = useState(null)
+
+    const navigate = useNavigate();
+    const location = useLocation()
+    const from = location?.state || '/'
+
+    const handleSignInSubmit = async e => {
+        e.preventDefault()
+        const form = e.target
+        const email = form.email.value
+        const password = form.password.value
+        const info = {
+            email: email,
+            password: password,
+            role: 'user' // add your role here
+        }
+        try {
+            //  await signIn(email, password)
+            console.log(info)
+            navigate(from)
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: " login Successful ",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        } catch (err) {
+            // setLoading(false)
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: err.code,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+
+    }
+
+    const handleSignUpSubmit = async e => {
         e.preventDefault()
 
         const form = e.target
@@ -19,10 +58,11 @@ const AuthPage = () => {
         const lastName = form.lastName.value
         const email = form.email.value
         const password = form.password.value
+        const name={firstName, lastName}
         const userinfo = {
-            firstName: firstName,
-            lastName: lastName,
+            name:name,
             email: email,
+            password:password,
             role: 'user',
             status: 'verified',
         }
@@ -169,7 +209,7 @@ const AuthPage = () => {
                     <div className='w-full md:w-[544px] py-[50px] px-[56px] mx-auto shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px] hover:shadow-[rgba(0,0,0,0.2)_0px_18px_50px_-10px] transition-all duration-500'>
                         <h2 className='text-[32px] font-josefin font-bold text-block text-center'>Sign in to your account</h2>
                         <p className='text-[#9096B2] text-lg font-josefin font-normal text-center'>Enter your email and password to access your account</p>
-                        <form onSubmit={handleSubmit} action="" >
+                        <form onSubmit={handleSignInSubmit} action="" >
                             <div className='flex flex-col mt-9'>
                                 <input type="email" name='email' placeholder='Email Address' className='w-full outline-0 py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
                                 <div className='relative'>
@@ -180,7 +220,7 @@ const AuthPage = () => {
                                 </div>
                             </div>
                             <button onClick={() => setIsOpen(!isOpen)} className='text-[#9096B2] text-[17px] font-josefin font-normal mt-[13px]'>Forgot your password?</button>
-                            <button className="block mt-6 w-full  text-[16px] font-josefin font-semibold py-3 px-5 bg-[#FB2E86] text-white rounded-sm  capitalize">Sign In</button>
+                            <Button  className="block mt-6 w-full  text-[16px] font-josefin font-semibold py-3 px-5 bg-[#FB2E86] text-white rounded-sm  capitalize">Sign In</Button>
 
 
                         </form>
@@ -196,7 +236,7 @@ const AuthPage = () => {
                     <div className='w-full md:w-[544px] py-[50px] px-[56px] mx-auto shadow-[rgba(0,0,0,0.05)_0px_0px_0px_1px] hover:shadow-[rgba(0,0,0,0.2)_0px_18px_50px_-10px] transition-all duration-500' >
                         <h2 className='text-[32px] font-josefin font-bold text-block text-center'>Create a new account</h2>
                         <p className='text-[#9096B2] text-lg font-josefin font-normal text-center'>Enter your details to get started</p>
-                        <form onSubmit={handleSubmit} action=""  >
+                        <form onSubmit={handleSignUpSubmit} action=""  >
                             <div className='flex flex-col mt-9'>
 
                                 <input type="text" name='firstName' placeholder='First name (optional)' className='w-full outline-0 py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
