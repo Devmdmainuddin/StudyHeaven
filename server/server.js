@@ -6,22 +6,29 @@ const authRoutes = require("./routes/auth-routes/index");
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
 
-cors({
-    origin: process.env.CLIENT_URL,
-    methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATH'],
-    allowedHeaders: ['Content-Type', 'Authorization',]
+// cors({
+    
+//     origin: 'http://localhost:5173',
+//     methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATH'],
+//     allowedHeaders: ['Content-Type', 'Authorization',]
 
-})
+// })
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 app.use(express.json());
 
 // Connect to MongoDB
 // {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
-mongoose.connect(MONGO_URL,)
-    .then(() => console.log("MongoDB Connected"))
+mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("MongoDB connected to StudyHeaven database"))
     .catch(err => console.log(err));
 
     
@@ -34,8 +41,8 @@ app.use((err, req, res, next) => {
         message: 'Something went wrong'
     })
 })
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`)
 })
 
 // const corsOptions ={

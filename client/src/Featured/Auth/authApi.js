@@ -50,9 +50,26 @@ export const authApi = createApi({
 
         addUser: builder.mutation({
             query: (body) => ({
-                url: `/user/`,
-                method: 'PUT',
-                body
+                url: `/auth/register/`,
+                method: 'POST',
+                body: {
+                    name: body.name,
+                    email: body.email,
+                    password: body.password,
+                    role: body.role
+                }
+            }),
+            invalidatesTags: [{ type: 'user', id: 'LIST' }],  // Invalidate the list cache after adding
+        }),
+
+        loginUser: builder.mutation({
+            query: (body) => ({
+                url: `/auth/login/`,
+                method: 'POST',
+                body: {
+                    email: body.email,
+                    password: body.password,
+                }
             }),
             invalidatesTags: [{ type: 'user', id: 'LIST' }],  // Invalidate the list cache after adding
         }),
@@ -79,7 +96,7 @@ export const authApi = createApi({
     }),
 });
 
-export const { useGetUserQuery, useGetUserByEmailQuery, useAddUserMutation, useGetFilteredUsersQuery, useUpdateUserMutation ,useDeleteUserMutation } = authApi;
+export const { useGetUserQuery, useGetUserByEmailQuery, useAddUserMutation,useLoginUserMutation, useGetFilteredUsersQuery, useUpdateUserMutation ,useDeleteUserMutation } = authApi;
 
 
 

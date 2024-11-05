@@ -6,10 +6,12 @@ import { FaEye } from 'react-icons/fa';
 import { IoMdEyeOff } from 'react-icons/io';
 import Swal from 'sweetalert2';
 import { Button } from "@/components/ui/button";
+import { useAddUserMutation, useLoginUserMutation } from "@/Featured/Auth/authApi";
 
 
 const AuthPage = () => {
-
+    const[AddUser]=useAddUserMutation();
+    const[LoginUser]=useLoginUserMutation()
     const [showpassword, setshowpassword] = useState(null)
 
     const navigate = useNavigate();
@@ -24,12 +26,11 @@ const AuthPage = () => {
         const info = {
             email: email,
             password: password,
-            role: 'user' // add your role here
         }
         try {
-            //  await signIn(email, password)
-            console.log(info)
-            navigate(from)
+         const loginuserinfo=   await LoginUser(info)
+            console.log(loginuserinfo)
+           if(loginuserinfo?.data?.success === true){
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -37,16 +38,32 @@ const AuthPage = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
-        } catch (err) {
-            // setLoading(false)
+            navigate(from)
+           }else{
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: err.code,
+                title: "Invalid email or password",
                 showConfirmButton: false,
                 timer: 1500
             });
-        }
+ 
+           }
+           
+        } catch (error) {
+           
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "Invalid email or password",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+               
+                
+              }
+
+
 
     }
 
@@ -54,19 +71,17 @@ const AuthPage = () => {
         e.preventDefault()
 
         const form = e.target
-        const firstName = form.firstName.value
-        const lastName = form.lastName.value
+        const name = form.name.value
         const email = form.email.value
         const password = form.password.value
-        const name={firstName, lastName}
+
         const userinfo = {
             name:name,
             email: email,
             password:password,
             role: 'user',
-            status: 'verified',
         }
-        console.log(userinfo);
+       
         let pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         let lowerChar = /^(?=.*[a-z])/
         let upperChar = /^(?=.*[A-Z])/
@@ -93,18 +108,7 @@ const AuthPage = () => {
 				showConfirmButton: false,
 				timer: 1500
 			});
-        }
-        else if (!lastName) {
-            // setFullNameError("Enter YouFull Name");
-            Swal.fire({
-				position: "top-end",
-				icon: "error",
-				title: "Enter YouFull Name",
-				showConfirmButton: false,
-				timer: 1500
-			});
-        }
-        else if (!password) {
+        } else if (!password) {
             // setPasswrdError("Enter a password");
             Swal.fire({
 				position: "top-end",
@@ -166,6 +170,8 @@ const AuthPage = () => {
         try {
         
         //    await AddUser(userinfo)
+        console.log(userinfo);
+        await AddUser(userinfo)
             // dispatch(registerUser(userinfo))
             Swal.fire({
                 position: "top-end",
@@ -179,19 +185,19 @@ const AuthPage = () => {
 
         }
         catch (error) {
-
-            const errorCode = error.code;
-            if(errorCode.includes("email")){
-            //   setEmailError("Email already in use")
-              Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "Email already in use",
-                showConfirmButton: false,
-                timer: 1500
-            })
+                console.error('Error during signup:', error);
+                const errorMessage = error.data?.message || error.message || 'An error occurred during signup';
+                console.error('Server response:', error.data); // Log the full error response for debugging
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: errorMessage,
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             }
-        }
+            
+        
     }
 
     return (
@@ -239,8 +245,7 @@ const AuthPage = () => {
                         <form onSubmit={handleSignUpSubmit} action=""  >
                             <div className='flex flex-col mt-9'>
 
-                                <input type="text" name='firstName' placeholder='First name (optional)' className='w-full outline-0 py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
-                                <input type="text" name='lastName' placeholder='Last name' className='w-full outline-0 mt-[22px] py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
+                                <input type="text" name='name' placeholder='First name (optional)' className='w-full outline-0 py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
                                 <input type="email" name='email' placeholder='Email Address' className='w-full mt-[22px] outline-0 py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
                                 <div className='relative'>
                                     <input type={showpassword ? "text" : "password"} name='password' placeholder='Password' className='w-full outline-0 mt-[22px] py-[13px] px-4 border border-[#C2C5E1] text-[#9096B2]' />
