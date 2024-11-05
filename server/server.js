@@ -23,7 +23,9 @@ app.use(express.json());
 mongoose.connect(MONGO_URL,)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log(err));
-app.use('.auth',authRoutes)
+
+    
+app.use('/auth', authRoutes);
 
 app.use((err, req, res, next) => {
     console.log(err.stack);
