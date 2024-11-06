@@ -23,7 +23,7 @@ const Navbar = () => {
             path: '/'
         },
         {
-            title: 'Coures Details',
+            title: 'Coures',
             path: '/'
         },
         {
@@ -54,10 +54,10 @@ const Navbar = () => {
         <div className="border-b">
             <Container>
                 <div className="flex gap-6 items-center justify-between py-6  relative">
-                    <h1 className="text-2xl uppercase font-semibold">Study Heaven</h1>
+                    <h1 className="text-2xl uppercase font-semibold">Study<span className="text-teal-500">Heaven</span> </h1>
                     <nav className="hidden md:inline-block">
                         <ul className="flex gap-6 items-center ">
-                            {links.map((item, idx) => <li key={idx}><Link to={item.path}>{item.title}</Link></li>)}
+                            {links.map((item, idx) => <li key={idx}><Link to={item.path} className="hover:text-teal-500 transition-all duration-300">{item.title}</Link></li>)}
                         </ul>
                     </nav>
                     <div onClick={() => setProOpen(!proOpen)} className="w-10 h-10 rounded-full border bg-slate-200 relative hidden md:inline-block">

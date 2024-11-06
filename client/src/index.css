@@ -6,6 +6,9 @@
 *{
   font-family: "Montserrat", sans-serif;
 }
+.active{
+  @apply text-teal-500
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

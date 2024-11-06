@@ -5,7 +5,43 @@ import "swiper/css";
 import { Navigation } from 'swiper/modules';
 import { Link } from "react-router-dom";
 const Hero = () => {
-
+    const courses = [
+        {
+            title: 'networking tecnology',
+            image: '/h1.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'cyber security',
+            image: '/h2.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'film & media',
+            image: '/h3.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'english language',
+            image: '/h4.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'Cloud computing',
+            image: '/h2.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'graphic & multimedia',
+            image: '/h1.jpeg',
+            category: 'Backend Developer',
+        },
+        {
+            title: 'web & software',
+            image: '/h4.jpeg',
+            category: 'Backend Developer',
+        },
+    ]
     return (
         <div className="bg-teal-50 ">
             <Container className=''>
@@ -20,7 +56,7 @@ const Hero = () => {
                         </div>
                         <div className="flex flex-wrap">
                             <Link className="inline-block px-6 py-4 mb-3 mr-4 text-sm font-medium leading-normal bg-teal-500 text-white hover:text-teal-500 hover:bg-transparent border hover:border-teal-500 rounded transition-all duration-500"
-                            href="#">Browse Couse</Link>
+                                href="#">Browse Couse</Link>
                             <Link className="inline-block px-6 py-4 mb-3 text-sm font-medium leading-normal text-teal-500 border-teal-500 hover:text-white hover:bg-teal-500 rounded border transition-all duration-500"
                                 href="#">Learn More</Link>
                         </div>
@@ -29,7 +65,7 @@ const Hero = () => {
                         <img className="w-full h-full object-cover" src="/hero.webp" alt="" />
                     </div>
 
-                    <div className="absolute left-1/2 -translate-x-1/2 -bottom-[130px] w-2/3    flex gap-6 flex-wrap" >
+                    <div className="absolute left-1/2 -translate-x-1/2 -bottom-[132px] w-2/3 flex gap-6 flex-wrap " >
                         <Swiper
                             loop={true}
                             navigation={true}
@@ -56,91 +92,19 @@ const Hero = () => {
 
                             className="mySwiper featured-products "
                         >
-
-                            <SwiperSlide >
-                                <div className="   bg-white rounded-sm shadow flex justify-center items-center flex-col">
+                            {courses.map((item, idx) => <SwiperSlide key={idx} >
+                                <div className=" mb-3  bg-white rounded-sm shadow flex justify-center items-center flex-col hover:shadow-[rgba(0,_0,_0,_0.1)_0px_10px_15px_-3px,_rgba(0,_0,_0,_0.05)_0px_4px_6px_-2px] transition-all duration-500">
                                     <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h1.jpeg" alt="" />
+                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src={item.image} alt="" />
                                     </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize">networking tecnology</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
+                                    <div className="content px-6 py-3  h-[120px] ">
+                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize">{item.title}</h4>
+                                        <p className="text-gray-500 text-sm">{item.category}</p>
                                     </div>
 
                                 </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className="   bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h2.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize"> cyber security</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
+                            </SwiperSlide>)}
 
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className=" bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h3.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize"> film & media</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
-
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className=" bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h4.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize"> english language</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
-
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className=" bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h2.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize">Cloud computing</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
-
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className=" bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h1.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize">graphic & multimedia</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
-
-                                </div>
-                            </SwiperSlide>
-                            <SwiperSlide >
-                                <div className=" bg-white rounded-sm shadow flex justify-center items-center flex-col">
-                                    <div className="image w-full h-[120px]">
-                                        <img className=" w-full h-full object-cover rounded-tl-sm rounded-tr-sm" src="/h4.jpeg" alt="" />
-                                    </div>
-                                    <div className="content px-6 py-3  h-[130px]">
-                                        <h4 className="m-1 text-[16px] font-bold font-heading capitalize">web & software</h4>
-                                        <p className="text-gray-500 text-sm">Backend Developer</p>
-                                    </div>
-
-                                </div>
-                            </SwiperSlide>
                         </Swiper>
 
 
