@@ -49,7 +49,7 @@ const Navbar = () => {
         resize()
         window.addEventListener("resize", resize)
     }, [])
-    console.log(user);
+
     return (
         <div className="border-b">
             <Container>
