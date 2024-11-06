@@ -56,9 +56,9 @@ const Hero = () => {
                         </div>
                         <div className="flex flex-wrap">
                             <Link className="inline-block px-6 py-4 mb-3 mr-4 text-sm font-medium leading-normal bg-teal-500 text-white hover:text-teal-500 hover:bg-transparent border hover:border-teal-500 rounded transition-all duration-500"
-                                href="#">Browse Couse</Link>
-                            <Link className="inline-block px-6 py-4 mb-3 text-sm font-medium leading-normal text-teal-500 border-teal-500 hover:text-white hover:bg-teal-500 rounded border transition-all duration-500"
-                                href="#">Learn More</Link>
+                               >Browse Couse</Link>
+                            <Link className="inline-block px-6 py-4 mb-3 text-sm font-medium leading-normal bg-white text-teal-500 border-white hover:text-white hover:bg-teal-500 rounded border transition-all duration-500"
+                               >Learn More</Link>
                         </div>
                     </div>
                     <div className=" w-full md:w-1/2 h-[324px] px-4">
