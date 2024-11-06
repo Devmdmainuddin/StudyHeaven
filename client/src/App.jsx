@@ -5,6 +5,7 @@ import Login from './pages/auth/Login'
 import Registation from './pages/auth/Registation'
 import Home from './pages/Home/Index'
 import Navbar from './components/shared/Navbar'
+import Footer from './components/shared/Footer'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <div>
            <Navbar/>
             <Outlet />
+            <Footer/>
           </div>
         }
       >

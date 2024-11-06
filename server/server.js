@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth-routes/index");
 const app = express();
 const port = process.env.PORT || 5000;
 const MONGO_URL = process.env.MONGO_URL;
-
+const User = require('./models/User');
 // cors({
     
 //     origin: 'http://localhost:5173',
@@ -31,7 +31,24 @@ mongoose.connect(MONGO_URL,{ useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB connected to StudyHeaven database"))
     .catch(err => console.log(err));
 
+ 
+    app.post('/jwt', async (req, res) => {
+        const { email, password } = req.body; 
     
+        try {
+            const user = await User.findOne({ email });
+
+            if (!user || user.password !== password) {
+                return res.status(401).send({ success: false, message: 'Invalid email or password.' });
+            }
+            const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            res.send({ success: true, token });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ success: false, message: 'Internal server error.' });
+        }
+    });
+
 app.use('/auth', authRoutes);
 
 app.use((err, req, res, next) => {

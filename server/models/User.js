@@ -20,6 +20,6 @@ const UserSchema = new mongoose.Schema({
         enum: ['admin', 'user'],
         default: 'user'
     }
-},{ collection: 'users' } );
+},{ collection: 'users',timestamps: true, } );
 
 module.exports = mongoose.model('User', UserSchema);
